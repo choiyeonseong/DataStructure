@@ -37,12 +37,3 @@ void smTranspose(term a[], term b[])
 		}
 	}
 }
-int main()
-{
-	term A;
-	term B;
-
-	A.col = 8;
-	A.row = 7;
-	A.value=
-}
