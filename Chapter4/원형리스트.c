@@ -13,7 +13,7 @@ typedef struct
 	ListNode* head;
 }HeadNode;
 
-HeadNode* createHead()
+HeadNode* createStack()
 {
 	HeadNode* h = (HeadNode*)malloc(sizeof(HeadNode));
 	if (h != NULL) h->head = NULL;
@@ -82,7 +82,7 @@ void printNode(HeadNode* phead)
 
 int main()
 {
-	HeadNode* h = createHead();
+	HeadNode* h = createStack();
 
 	ListNode* node1 = createNode(h, 8);
 	ListNode* node2 = createNode(h, 16);

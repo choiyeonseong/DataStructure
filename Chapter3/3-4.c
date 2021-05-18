@@ -1,5 +1,5 @@
 #include<stdio.h>
-#define MAX(a,b) ((a>b)?a:b)
+#define SIZE(a,b) ((a>b)?a:b)
 #define MAX_DEGREE 50
 
 typedef struct
@@ -32,7 +32,7 @@ polynomial addPoly(polynomial A, polynomial B)
 	polynomial C;
 	int A_index = 0, B_index = 0, C_index = 0;
 	int A_degree = A.degree, B_degree = B.degree;
-	C.degree = MAX(A.degree, B.degree);
+	C.degree = SIZE(A.degree, B.degree);
 
 	while (A_index <= A.degree && B_index <= B.degree) 
 	{
