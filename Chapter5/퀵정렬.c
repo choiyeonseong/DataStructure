@@ -18,42 +18,39 @@ void printArray(int* pary, int sz);
 
 int main()
 {
-	int ary[] = { 3,5,2,4,7,6,1 };
+	int ary[] = { 3,5,2,4,7,6,1,8 };
 	int size = sizeof(ary) / sizeof(ary[0]);
-	quickSort(ary, 0, size-1);
+	quickSort(ary, 0, size - 1);
 
 	return 0;
 }
 
 void quickSort(int* pary, int left, int right)
 {
-	if (left >= right) return;	// 기저조건
-	int pivot = left;
-	int lleft = pivot + 1;	// 왼쪽부터 훑어옴
-	int lright = right;		// 오른쪽부터 훑어옴
+	int pivot = (left + right) / 2;	// n/2를 피봇을 설정한다. 
+	int lidx = left;				// 왼쪽부터 훑어옴 = 0
+	int ridx = right;				// 오른쪽부터 훑어옴 = size-1
 
-	while (lleft <= lright)	// lleft와 lright가 교체가 안될때 까지 수행
+	while (lidx <= ridx)	// lleft와 lright가 교체되기 전 까지 수행
 	{
-		while (pary[lleft] <= pary[pivot]) lleft++;		// 왼쪽 부터 순서가 맞으면 그냥 다음으로 넘어감
-		while (pary[lright] >= pary[pivot] && lright>left) lright--;	// 오른쪽 부터 순서가 맞으면 그냥 앞으로 넘어옴, 배열 크기를 벗어나지 않는 조건이 필요
+		while (pary[lidx] < pary[pivot]) lidx++;	// 피봇의 왼쪽 리스트 중 작은 값은 통과
+		while (pary[ridx] > pary[pivot]) ridx--;	// 피봇의 오른쪽 리스트 중 큰 값은 통과
 
-		if (lleft > lright)
+		if (lidx <= ridx)	// 정렬할 조건이 되면(lidx == ridx 이면 pivot값이다.)
 		{
-			swap(&pary[lright], &pary[pivot]);
-		}
-		else
-		{
-			swap(&pary[lright], &pary[lleft]);
+			swap(&pary[ridx], &pary[lidx]);	// 찾은 리스트의 두 값을 교환하여 정렬한다.
+			lidx++;
+			ridx--;
 		}
 	}
 	// 단계별로 출력
-	for (int k = 0; k < right+1; k++) {
+	for (int k = 0; k < right + 1; k++) {
 		printf("%d	", pary[k]);
 	}
 	printf("\n");
 
-	quickSort(pary, left, lright - 1);
-	quickSort(pary, lright + 1, right);
+	if (left < ridx)quickSort(pary, left, ridx);	// a
+	if (lidx < right)quickSort(pary, lidx, right);	// b
 }
 
 void swap(int* a, int* b) {
