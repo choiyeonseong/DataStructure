@@ -14,36 +14,46 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
 
-void insertionSort(char* pary, int sz);
-void swap(char* a, char* b);
+void insertionSort(char* pary, int sz);	// 삽입 정렬 함수
+void swap(char* a, char* b);			// swap 함수
 
 int main()
 {
-	char input_ary[11];
-	//fgets(input_ary, 11, stdin);	// eRtGdYsZgh
-	scanf("%s", input_ary);
-	int size = sizeof(input_ary) / sizeof(input_ary[0]);
+	int size = 10;
+	char input_ary[11];		// 11번째는 '\0'값
 
-	insertionSort(input_ary, size);
+	for (int i = 0; i < 10; i++)
+	{
+		scanf("%c", &input_ary[i]);
+	}
 
+	// 정렬
+	insertionSort(input_ary, size);	// 아스키코드 값 순서대로 정렬
+
+	// 출력
 	int i = 1;	// input_ary[0]='\0'
 
 	printf("\n대문자\n");
-	while ('Z' >= input_ary[i]) {
-		printf("%c ", input_ary[i++]);
+
+	while ('Z' >= input_ary[i]) {		// 앞에 있는 대문자 모두 출력
+		if ('A' <= input_ary[i])
+			printf("%c ", input_ary[i]);
+		
+		i++;
 	}
 
 	printf("\n소문자\n");
-	while (i < size) {
+	while (i<size) {		// 나머지(소문자) 출력
 		printf("%c ", input_ary[i++]);
 	}
 }
 
 void insertionSort(char* pary, int sz)
 {
-	for (int i = 1; i < sz; i++) {
-		for (int j = i; j > 0; j--) {
+	for (int i = 1; i < sz; i++) {		// 두번째 값 부터
+		for (int j = i; j > 0; j--) {	// 이전 값들과 비교하여
 			if (pary[j] < pary[j - 1]) {
+				// 큰 값이 앞에 올때 뒤에 작은 값과 교체
 				swap(&pary[j], &pary[j - 1]);
 			}
 		}

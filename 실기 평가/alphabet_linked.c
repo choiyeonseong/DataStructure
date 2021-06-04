@@ -12,52 +12,56 @@
 #include<string.h>
 #include<stdlib.h>
 
-typedef struct node {
+typedef struct node {	// 연결리스트 노드 구조체 선언
 	char alphabet;
 	struct node* next;
 }Node;
 
-typedef struct {
+typedef struct {	// 헤더의 구조체 선언
 	Node* header;
 }HeadNode;
 
-void insertionSort(HeadNode* head);
+void insertionSort(HeadNode* head);	// 삽입정렬 함수
 
 int main()
 {
 	char alpha;
 
-	HeadNode* Head = malloc(sizeof(HeadNode));
+	HeadNode* Head = malloc(sizeof(HeadNode));	// 헤더 동적 할당
 	if (Head != NULL) Head->header = NULL;
 
-	for (int i = 0; i < 10; i++) {
-		Node* newNode = malloc(sizeof(Node));
+	for (int i = 0; i < 10; i++) {	// 연결리스트의 크기는 10개
+		Node* newNode = malloc(sizeof(Node));	// 새로운 노드 동적 할당
 		if (newNode != NULL) {
 			scanf("%c", &alpha);
 			newNode->alphabet = alpha;
-			newNode->next = Head->header;
-			Head->header = newNode;
+			newNode->next = Head->header;	// 새로운 노드를 이전 노드 앞에 추가
+			Head->header = newNode;		// 헤더에 새로운 노드 추가
 		}
 	}
 
-	insertionSort(Head);
+	insertionSort(Head);	// 아스키 코드 값 순으로 정렬
 
 	Node* curr = Head->header;
 
 	printf("대문자 : ");
-	while ('Z' >= curr->alphabet) {
-
-		printf("%c ", curr->alphabet);
-
+	while ('Z' >= curr->alphabet) {	// 대문자 먼저 출력
+		if('A' <= curr->alphabet)
+			printf("%c ", curr->alphabet);
+		
 		curr = curr->next;
+		if (curr->next == NULL)
+			return;
 	}
 
-	printf("\n소문자 : ");
-	while (curr != NULL) {
-
-		printf("%c ", curr->alphabet);
+	printf("\n소문자 : ");	// 나머지(소문자) 출력
+	while ('z' >= curr->alphabet) {
+		if ('a' <= curr->alphabet)
+			printf("%c ", curr->alphabet);
 
 		curr = curr->next;
+		if (curr->next == NULL)
+			return;
 	}
 }
 
@@ -71,10 +75,10 @@ void insertionSort(HeadNode* head)
 	{
 		if (curr->alphabet > curr->next->alphabet)
 		{
-			tmp = curr->next;
-			curr->next = curr->next->next;
-			tmp->next = head->header;
-			head->header = curr = tmp;
+			tmp = curr->next;				// 옮길 노드를 임시 저장
+			curr->next = curr->next->next;	// 옮길 노드 빼고 연결
+			tmp->next = head->header;		// tmp 다음 첫 노드 연결
+			head->header = curr = tmp;		// 헤더 노드 = 현재 노드 = tmp
 			continue;
 		}
 		curr = curr->next;
